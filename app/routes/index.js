@@ -6,15 +6,30 @@ let ObjectID = require('mongodb').ObjectID;
 module.exports = function(app, db) {
   app.get('/notes', (req, res, next) => {
     console.log('/notes');
-    let dateAt = +new Date(2018, 6, 1)/1000;
-    let dateTo = +new Date(2018, 8, 1)/1000;
-    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt}}, {limit:20000}).toArray(function(e, results){
+    let dateAt, dateTo;
+    if (req.query.date_at) {
+      let dateAtFilter = req.query.date_at.split('-');
+      dateAt = +new Date(dateAtFilter[0], dateAtFilter[1] - 1, dateAtFilter[2])/1000;
+    } else {
+      dateAt = +new Date(2018, 6, 1)/1000;
+    }
+
+    if (req.query.date_at) {
+      let dateToFilter = req.query.date_to.split('-');
+      dateTo = +new Date(dateToFilter[0], dateToFilter[1] - 1, dateToFilter[2])/1000;
+    } else {
+      dateTo = +new Date()/1000;
+    }
+
+
+    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt, $lte: dateTo}}, {limit:20000}).toArray(function(e, results){
       if (e) return next(e);
       let filterData = results;
       filterData = _.filter(filterData, filterFunctions.attacksBot3New);
       filterData = _.filter(filterData, filterFunctions.startTB);
       filterData = _.filter(filterData, filterFunctions.leagueName);
       filterData = _.filter(filterData, filterFunctions.currentWinner);
+      //filterData = _.filter(filterData, filterFunctions.totalGoals);
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
       //filterData = _.filter(filterData, filterFunctions.startWinnerKef);

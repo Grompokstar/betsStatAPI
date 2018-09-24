@@ -4,7 +4,7 @@ function totalGoals(item) {
 
   if (item.view.scores) {
     totalGoals = parseInt(item.view.scores['2'].home) + parseInt(item.view.scores['2'].away);
-    return totalGoals <= 0
+    return totalGoals >= 1
   } else {
     return false
   }
@@ -57,7 +57,7 @@ function startResultOdd(item) {
 
 function leagueName(item) {
   if (item.league && item.league.name) {
-    let leagueNameFilter = ['50', '60', '70', '80', 'U20', 'U18', 'U19'];
+    let leagueNameFilter = ['50', '60', '70', '80', 'U18', 'U19', 'U20', 'U21'];
 
     return item.league.name.indexOf(leagueNameFilter[0]) === -1
       && item.league.name.indexOf(leagueNameFilter[1]) === -1
@@ -107,6 +107,9 @@ function attacksBot3New(item) {
     let goalsOffTarget = 0;
     goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
 
+    let allGoals = 0;
+    allGoals = goalsOnTarget + goalsOffTarget;
+
     /*let corners = 0;
     corners = parseInt(item.view.stats.corners[0]) + parseInt(item.view.stats.corners[1]);*/
 
@@ -116,14 +119,7 @@ function attacksBot3New(item) {
     let dangerAttacksSumm = 0;
     dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
 
-    let favoriteDangerAttacksKef;
-    if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
-      favoriteDangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
-    } else {
-      favoriteDangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[1])/parseInt(item.view.stats.dangerous_attacks[0]);
-    }
-
-    return goalsOnTarget >= 3 && goalsOffTarget >= 1 && attacksSumm >= 32 && dangerAttacksSumm/attacksSumm >= 0.5
+    return goalsOnTarget >= 3 && goalsOffTarget >= 1 && allGoals >= 5 && attacksSumm >= 32 && dangerAttacksSumm/attacksSumm >= 0.5 && dangerAttacksSumm/attacksSumm <= 0.8
   } else {
     return false
   }
