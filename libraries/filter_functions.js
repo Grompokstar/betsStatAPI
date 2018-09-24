@@ -4,7 +4,7 @@ function totalGoals(item) {
 
   if (item.view.scores) {
     totalGoals = parseInt(item.view.scores['2'].home) + parseInt(item.view.scores['2'].away);
-    return totalGoals >= 1
+    return totalGoals <= 0
   } else {
     return false
   }
@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
+      return parseFloat(startTotalOdd.over_od) <= 1.6 && parseFloat(handicapArray[0]) <= 2.5
+        || parseFloat(startTotalOdd.over_od) < 1.8 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) < 1.9 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -267,7 +267,7 @@ function attacksBotCorporation(item) {
 function attacks(item) {
   //return item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks
   if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks && item.odds['1_1'] && parseFloat(item.odds['1_1'][0].home_od) > 1) {
-    /*let goalsOnTarget = 0;
+    let goalsOnTarget = 0;
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
     let goalsOffTarget = 0;
@@ -282,15 +282,13 @@ function attacks(item) {
     let attacksSumm = 0;
     attacksSumm = parseInt(item.view.stats.attacks[0]) + parseInt(item.view.stats.attacks[1]);
 
-    let dangerAttacksSumm = 0
+    let dangerAttacksSumm = 0;
     dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
 
     let dangerAttacksDif = Math.abs(parseInt(item.view.stats.dangerous_attacks[0]) - parseInt(item.view.stats.dangerous_attacks[1]));
 
-    let attacksKef = attacksSumm/dangerAttacksSumm;*/
+    let attacksKef = attacksSumm/dangerAttacksSumm;
 
-    let dangerAttacksSumm = 0;
-    dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
 
     let dangerAttacksKef;
     let advantageTeam = '';
@@ -325,7 +323,9 @@ function attacks(item) {
     //return ((dangerAttacksKef >= 3.2 && advantageTeam === 'home' || dangerAttacksKef >= 1.2 && dangerAttacksKef <= 1.5 && advantageTeam === 'away') && dangerAttacksDiff >= 3 && oddsKef >= 0.5 && oddsKef <= 1.2)
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksDiff >= 3 && attacksRatioKefAway >= 1.2 && oddsKef >= 0.3 && oddsKef <= 1.2 && dangerAttacksSumm >= 18)
+    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 30
+      && goalsOnTarget >= 2 && attacksRatioKefAway >= 1.2
+      )
   } else {
     return false
   }
@@ -424,8 +424,9 @@ function currentWinner(item) {
     let currentWinnerOdd = winnerOdds[0];
     let startWinnerOdd = winnerOdds[winnerOdds.length -1];
     let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
+    //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
 
-    if (dangerAttacksKef > 1) {
+   /* if (dangerAttacksKef > 1) {
       if (parseFloat(currentWinnerOdd.home_od) <= 1.7) {
         return true
       } else {
@@ -437,6 +438,14 @@ function currentWinner(item) {
       } else {
         return false
       }
+    }*/
+
+   //teddy
+
+    if (parseFloat(currentWinnerOdd.away_od) >= 1.2 && parseFloat(currentWinnerOdd.away_od) <= 6) {
+      return true
+    } else {
+      return false
     }
 
     /*if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
