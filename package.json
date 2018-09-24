@@ -1,0 +1,23 @@
+{
+  "name": "betsprojects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "deploy": "export $(cat ./config/deploy/.stage | xargs) && ./bin/deploy.sh"
+  },
+  "author": "Roman Chervontsev",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "lodash": "^4.17.11",
+    "mongodb": "^3.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
