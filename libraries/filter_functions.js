@@ -320,12 +320,12 @@ function attacks(item) {
     }
 
     //Супер бот
-    //return ((dangerAttacksKef >= 3.2 && advantageTeam === 'home' || dangerAttacksKef >= 1.2 && dangerAttacksKef <= 1.5 && advantageTeam === 'away') && dangerAttacksDiff >= 3 && oddsKef >= 0.5 && oddsKef <= 1.2)
+    return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 30
+    /*return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 30
       && goalsOnTarget >= 2 && attacksRatioKefAway >= 1.2
-      )
+      )*/
   } else {
     return false
   }
@@ -442,7 +442,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 1.2 && parseFloat(currentWinnerOdd.away_od) <= 6) {
+    if (parseFloat(currentWinnerOdd.home_od) >= 1.5 && parseFloat(currentWinnerOdd.home_od) <= 7) {
       return true
     } else {
       return false
@@ -470,7 +470,7 @@ function startWinnerKef(item) {
     let startWinnerOdd = winnerOdds[winnerOdds.length -1];
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
 
-    if (parseFloat(startWinnerOdd.home_od) <= 1.4 || parseFloat(startWinnerOdd.away_od) <= 1.4) {
+    if (parseFloat(startWinnerOdd.home_od) >= 1.66 && parseFloat(startWinnerOdd.home_od) <= 5) {
       return true
     } else {
       return false
@@ -532,6 +532,7 @@ function currentTB1stHalf(item) {
     return false
   }
 }
+
 
 module.exports =  {
   startTB: startTB,
