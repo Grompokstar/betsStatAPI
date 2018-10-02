@@ -14,7 +14,7 @@ module.exports = function(app, db) {
       dateAt = +new Date(2018, 6, 1)/1000;
     }
 
-    if (req.query.date_at) {
+    if (req.query.date_to) {
       let dateToFilter = req.query.date_to.split('-');
       dateTo = +new Date(dateToFilter[0], dateToFilter[1] - 1, dateToFilter[2])/1000;
     } else {
@@ -22,18 +22,18 @@ module.exports = function(app, db) {
     }
 
 
-    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt, $lte: dateTo}}, {limit:30000}).toArray(function(e, results){
+    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt}}, {limit:30000}).toArray(function(e, results){
       if (e) return next(e);
       let filterData = results;
       filterData = _.filter(filterData, filterFunctions.startTB);
-      filterData = _.filter(filterData, filterFunctions.totalGoals);
-      filterData = _.filter(filterData, filterFunctions.attacks);
+      //filterData = _.filter(filterData, filterFunctions.totalGoals);
+      filterData = _.filter(filterData, filterFunctions.attacksBot2);
       filterData = _.filter(filterData, filterFunctions.leagueName);
-      filterData = _.filter(filterData, filterFunctions.currentWinner);
+      //filterData = _.filter(filterData, filterFunctions.currentWinner);
 
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
-      filterData = _.filter(filterData, filterFunctions.startWinnerKef);
+      //filterData = _.filter(filterData, filterFunctions.startWinnerKef);
 
 
       let finishData = [];
