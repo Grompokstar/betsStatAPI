@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) <= 2 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) > 3
+      return parseFloat(startTotalOdd.over_od) <= 1.6 && parseFloat(handicapArray[0]) <= 2.5
+        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -149,7 +149,8 @@ function attacksBot3New(item) {
     let dangerAttacksSumm = 0;
     dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
 
-    return goalsOnTarget >= 3 && goalsOffTarget >= 1 && allGoals >= 5 && attacksSumm >= 32 && dangerAttacksSumm/attacksSumm >= 0.48 && dangerAttacksSumm/attacksSumm <= 0.68
+    return goalsOnTarget >= 3 && goalsOffTarget >= 1 && allGoals >= 5 && attacksSumm >= 32
+      && dangerAttacksSumm/attacksSumm >= 0.48 && dangerAttacksSumm/attacksSumm <= 0.68
   } else {
     return false
   }
@@ -456,7 +457,7 @@ function currentWinner(item) {
     let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
 
-    if (dangerAttacksKef > 1) {
+   /* if (dangerAttacksKef > 1) {
       if (parseFloat(currentWinnerOdd.home_od) <= 1.7) {
         return true
       } else {
@@ -468,15 +469,15 @@ function currentWinner(item) {
       } else {
         return false
       }
-    }
+    }*/
 
    //teddy
 
-    /*if (parseFloat(currentWinnerOdd.home_od) >= 1.2 && parseFloat(currentWinnerOdd.home_od) <= 6) {
+    if (parseFloat(currentWinnerOdd.home_od) >= 1.2 && parseFloat(currentWinnerOdd.home_od) <= 6) {
       return true
     } else {
       return false
-    }*/
+    }
 
     /*if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
       if (parseFloat(currentWinnerOdd.home_od) >= 1.8 && parseFloat(currentWinnerOdd.home_od) <= 2.8) {
@@ -500,7 +501,7 @@ function startWinnerKef(item) {
     let startWinnerOdd = winnerOdds[winnerOdds.length -1];
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
 
-    if (parseFloat(startWinnerOdd.home_od) < 1.55 || parseFloat(startWinnerOdd.home_od) < 1.55) {
+    if (parseFloat(startWinnerOdd.home_od) < 1.65 || parseFloat(startWinnerOdd.home_od) < 1.65) {
       return true
     } else {
       return false
@@ -570,6 +571,7 @@ module.exports =  {
   attacksBot1: attacksBot1,
   attacksBot2: attacksBot2,
   attacksBot3: attacksBot3,
+  attacksBot3New: attacksBot3New,
   attacksBot4: attacksBot4,
   attacksBotCorporation: attacksBotCorporation,
   totalGoals: totalGoals,
@@ -583,6 +585,6 @@ module.exports =  {
   trendAttacks: trendAttacks,
   mapTrendAttacks: mapTrendAttacks,
   attacksBotTM: attacksBotTM,
-  startWinnerKef: startWinnerKef,
-  attacksBot3New: attacksBot3New
+  startWinnerKef: startWinnerKef
+
 }
