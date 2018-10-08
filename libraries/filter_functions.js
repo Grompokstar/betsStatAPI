@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 2 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
+      return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
+        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -101,7 +101,7 @@ function attacksBot4(item) {
     let dangerAttacksDiff = 0;
     dangerAttacksDiff = Math.abs(parseInt(item.view.stats.dangerous_attacks[0]) - parseInt(item.view.stats.dangerous_attacks[1]));
 
-    return dangerAttacksDiff >= 11 && dangerAttacksSumm >= 21 && (goalsOnTarget >= 3 && goalsOnTargetDiff >= 2  || goalsOnTarget >= 5 && goalsOnTargetDiff >= 1) && goalsOffTargetDiff >= 1 && goalsOffTarget >= 2
+    return dangerAttacksDiff >= 12 && dangerAttacksSumm >= 21 && (goalsOnTarget >= 3 && goalsOnTargetDiff >= 2  || goalsOnTarget >= 5 && goalsOnTargetDiff >= 1) && goalsOffTargetDiff >= 1 && goalsOffTarget >= 2
   } else {
     return false
   }
@@ -465,7 +465,7 @@ function currentWinner(item) {
     let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
 
-   /* if (dangerAttacksKef > 1) {
+    if (dangerAttacksKef > 1) {
       if (parseFloat(currentWinnerOdd.home_od) <= 1.7) {
         return true
       } else {
@@ -477,15 +477,15 @@ function currentWinner(item) {
       } else {
         return false
       }
-    }*/
+    }
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.home_od) >= 1.2 && parseFloat(currentWinnerOdd.home_od) <= 6) {
+   /* if (parseFloat(currentWinnerOdd.home_od) >= 1.2 && parseFloat(currentWinnerOdd.home_od) <= 6) {
       return true
     } else {
       return false
-    }
+    }*/
 
     /*if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
       if (parseFloat(currentWinnerOdd.home_od) >= 1.8 && parseFloat(currentWinnerOdd.home_od) <= 2.8) {
