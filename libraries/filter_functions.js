@@ -314,6 +314,9 @@ function attacks(item) {
     let goalsOnTargetDiff = 0;
     goalsOnTargetDiff = parseInt(item.view.stats.on_target[1]) - parseInt(item.view.stats.on_target[0]);
 
+    let goalsOffTargetDiff = 0;
+    goalsOffTargetDiff = parseInt(item.view.stats.off_target[1]) - parseInt(item.view.stats.off_target[0]);
+
     let goalsOffTarget = 0;
     goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
 
@@ -367,8 +370,8 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 1 && attacksSumm >= 32
-      && goalsOnTarget >= 2 && attacksRatioKefAway >= 1 && goalsOnTargetDiff >= 0
+    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 33
+      && goalsOnTarget >= 2 && attacksRatioKefAway >= 1 && goalsOnTargetDiff >= 0 && goalsOffTargetDiff >= 0
       )
   } else {
     return false
