@@ -3,7 +3,7 @@ function totalGoals(item) {
   let totalGoals;
 
   if (item.view.scores) {
-    totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
+    totalGoals = parseInt(item.view.scores['2'].away) - parseInt(item.view.scores['2'].home);
     return totalGoals <= 1
   } else {
     return false
@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
+      return parseFloat(startTotalOdd.over_od) <= 1.5 && parseFloat(handicapArray[0]) <= 2.5
         || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
+        || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -312,10 +312,13 @@ function attacks(item) {
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
     let goalsOnTargetDiff = 0;
-    goalsOnTargetDiff = parseInt(item.view.stats.on_target[1]) - parseInt(item.view.stats.on_target[0]);
+    goalsOnTargetDiff = parseInt(item.view.stats.on_target[0]) - parseInt(item.view.stats.on_target[1]);
 
     let goalsOffTarget = 0;
     goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let goalsOffTargetDiff = 0;
+    goalsOffTargetDiff = parseInt(item.view.stats.off_target[0]) - parseInt(item.view.stats.off_target[1]);
 
     let team1AllGoals = 0;
     team1AllGoals = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.off_target[0]);
@@ -336,7 +339,7 @@ function attacks(item) {
 
     let dangerAttacksKef;
     let advantageTeam = '';
-    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
+    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[0]) - parseInt(item.view.stats.dangerous_attacks[1]);
     let attacksDiff;
 
 
@@ -367,8 +370,8 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 1 && attacksSumm >= 32
-      && goalsOnTarget >= 2 && attacksRatioKefAway >= 1 && goalsOnTargetDiff >= 0
+    return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 5 && attacksSumm >= 33
+      && goalsOnTarget >= 3 && attacksRatioKefHome >= 1.2 && goalsOnTargetDiff >= 0 && goalsOffTargetDiff >= 0
       )
   } else {
     return false
@@ -486,7 +489,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 1.7 && parseFloat(currentWinnerOdd.away_od) <= 7) {
+    if (parseFloat(currentWinnerOdd.home_od) >= 1.1 && parseFloat(currentWinnerOdd.home_od) <= 2) {
       return true
     } else {
       return false
