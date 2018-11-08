@@ -489,7 +489,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.home_od) >= 1.1 && parseFloat(currentWinnerOdd.home_od) <= 2) {
+    if (parseFloat(currentWinnerOdd.home_od) >= 1.1 && parseFloat(currentWinnerOdd.home_od) <= 1.9) {
       return true
     } else {
       return false
