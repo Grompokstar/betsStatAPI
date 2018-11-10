@@ -27,9 +27,9 @@ module.exports = function(app, db) {
       let filterData = results;
       filterData = _.filter(filterData, filterFunctions.startTB);
       //filterData = _.filter(filterData, filterFunctions.totalGoals);
-      filterData = _.filter(filterData, filterFunctions.attacksBot3New);
-      filterData = _.filter(filterData, filterFunctions.leagueName);
-      filterData = _.filter(filterData, filterFunctions.currentWinner);
+      filterData = _.filter(filterData, filterFunctions.attacksBot2);
+      //filterData = _.filter(filterData, filterFunctions.leagueName);
+      //filterData = _.filter(filterData, filterFunctions.currentWinner);
       //filterData = _.filter(filterData, filterFunctions.startWinnerKef);
 
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);

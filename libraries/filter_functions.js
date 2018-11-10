@@ -30,8 +30,8 @@ function startTB(item) {
       let handicapArray = startTotalOdd.handicap.split(',');
 
       return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
+        || parseFloat(startTotalOdd.over_od) < 1.75 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -203,8 +203,7 @@ function attacksBot2(item) {
     }
 
     return (goalsOnTarget >= 3 && goalsOnTargetDiff >= 2  || goalsOnTarget >= 5) && goalsOffTarget >= 2
-      && (item.view.stats.dangerous_attacks[0] <= 10 || item.view.stats.dangerous_attacks[1] <= 10)
-      && favoriteDangerAttacksKef >= 2.9
+      && favoriteDangerAttacksKef >= 2.8
   } else {
     return false
   }
