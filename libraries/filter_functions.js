@@ -487,7 +487,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 4 && parseFloat(currentWinnerOdd.away_od) <= 10) {
+    if (parseFloat(currentWinnerOdd.away_od) >= 4 && parseFloat(currentWinnerOdd.away_od) <= 13) {
       return true
     } else {
       return false
