@@ -29,8 +29,8 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.75 && parseInt(handicapArray[0]) === 3
+      return parseFloat(startTotalOdd.over_od) <= 1.6 && parseFloat(handicapArray[0]) === 2.5
+        || parseFloat(startTotalOdd.over_od) < 2 && parseInt(handicapArray[0]) === 3
         || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
@@ -237,6 +237,48 @@ function attacksBot1(item) {
     }
 
     return dangerAttacksDif >= 11 && (goalsOnTarget >= 3 && goalsOnTargetDiff >= 2 ||  goalsOnTarget >= 5 && goalsOnTargetDiff >= 1) && goalsOffTarget >= 1
+  } else {
+    return false
+  }
+}
+
+function attacksBot5(item) {
+  if (item.view && item.view.stats && item.view.stats.on_target  && item.view.stats.off_target && item.view.stats.attacks && item.view.stats.dangerous_attacks) {
+    let goalsOnTarget = 0;
+    goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
+
+    let goalsOnTargetDiff = 0;
+    goalsOnTargetDiff = Math.abs(parseInt(item.view.stats.on_target[0]) - parseInt(item.view.stats.on_target[1]));
+
+    let goalsOffTarget = 0;
+    goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let attacksSumm = 0;
+    attacksSumm = parseInt(item.view.stats.attacks[0]) + parseInt(item.view.stats.attacks[1]);
+
+    let dangerAttacksSumm = 0;
+    dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
+
+    let allGoals = 0;
+    allGoals = goalsOnTarget + parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let dangerAttacksDiff = Math.abs(parseInt(item.view.stats.dangerous_attacks[0]) - parseInt(item.view.stats.dangerous_attacks[1]));
+
+    let dangerAttacksKef;
+    if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
+      dangerAttacksKef = parseInt(item.view.stats.attacks[0])/parseInt(item.view.stats.dangerous_attacks[0])
+    } else {
+      dangerAttacksKef = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.dangerous_attacks[1])
+    }
+
+    let favoriteDangerAttacksKef;
+    if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
+      favoriteDangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
+    } else {
+      favoriteDangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[1])/parseInt(item.view.stats.dangerous_attacks[0]);
+    }
+
+    return goalsOnTarget > 1 && allGoals > 3 && favoriteDangerAttacksKef >= 1.67
   } else {
     return false
   }
@@ -588,6 +630,7 @@ module.exports =  {
   attacksBot3: attacksBot3,
   attacksBot3New: attacksBot3New,
   attacksBot4: attacksBot4,
+  attacksBot5: attacksBot5,
   attacksBotCorporation: attacksBotCorporation,
   totalGoals: totalGoals,
   attacks: attacks,
