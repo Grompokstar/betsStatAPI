@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
+      return parseFloat(startTotalOdd.over_od) <= 1.65 && parseFloat(handicapArray[0]) <= 2.5
+        || parseFloat(startTotalOdd.over_od) <= 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) <= 1.95 && parseFloat(handicapArray[0]) >= 3.5
     } else {
       return false
     }
@@ -343,7 +343,7 @@ function attacks(item) {
     let attacksDiff;
 
 
-    if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
+    if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
       dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
       attacksDiff = parseInt(item.view.stats.attacks[0]) - parseInt(item.view.stats.attacks[1]);
       advantageTeam = 'home'
@@ -370,9 +370,7 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 33
-      && goalsOnTarget >= 2 && attacksRatioKefAway >= 1 && goalsOnTargetDiff >= 0 && goalsOffTargetDiff >= 0
-      )
+    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 18)
   } else {
     return false
   }
@@ -489,7 +487,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 1.7 && parseFloat(currentWinnerOdd.away_od) <= 7) {
+    if (parseFloat(currentWinnerOdd.away_od) >= 4 && parseFloat(currentWinnerOdd.away_od) <= 10) {
       return true
     } else {
       return false
