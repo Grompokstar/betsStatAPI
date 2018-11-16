@@ -30,8 +30,8 @@ function startTB(item) {
       let handicapArray = startTotalOdd.handicap.split(',');
 
       return parseFloat(startTotalOdd.over_od) <= 1.45 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 1.95 && parseFloat(handicapArray[0]) > 3
+        || parseFloat(startTotalOdd.over_od) <= 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) <= 1.95 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -370,7 +370,7 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 2 && attacksSumm >= 33
+    return (advantageTeam === 'away' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 3
       && goalsOnTarget >= 2 && attacksRatioKefAway >= 1 && goalsOnTargetDiff >= 0 && goalsOffTargetDiff >= 0
       )
   } else {
@@ -489,7 +489,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 1.7 && parseFloat(currentWinnerOdd.away_od) <= 7) {
+    if (parseFloat(currentWinnerOdd.away_od) >= 1.9 && parseFloat(currentWinnerOdd.away_od) <= 7) {
       return true
     } else {
       return false
