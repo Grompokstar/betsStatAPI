@@ -4,7 +4,7 @@ function totalGoals(item) {
 
   if (item.view.scores) {
     totalGoals = parseInt(item.view.scores['2'].away) - parseInt(item.view.scores['2'].home);
-    return totalGoals <= 1
+    return totalGoals <= 0
   } else {
     return false
   }
@@ -29,9 +29,9 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) <= 1.5 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) < 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) > 3
+      return parseFloat(startTotalOdd.over_od) <= 1.55 && parseFloat(handicapArray[0]) <= 2.5
+        || parseFloat(startTotalOdd.over_od) <= 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) > 3
     } else {
       return false
     }
@@ -370,9 +370,8 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksDiff >= 5 && attacksSumm >= 33
-      && goalsOnTarget >= 3 && attacksRatioKefHome >= 1.2 && goalsOnTargetDiff >= 0 && goalsOffTargetDiff >= 0
-      )
+    return (dangerAttacksDiff >= 7 && dangerAttacksSumm >= 21 && (team1AllGoals - team2AllGoals >= 2)
+      && attacksRatioKefHome >= 1.1)
   } else {
     return false
   }
@@ -489,7 +488,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.home_od) >= 1.1 && parseFloat(currentWinnerOdd.home_od) <= 1.9) {
+    if (parseFloat(currentWinnerOdd.home_od) >= 1.2 && parseFloat(currentWinnerOdd.home_od) <= 2.5) {
       return true
     } else {
       return false

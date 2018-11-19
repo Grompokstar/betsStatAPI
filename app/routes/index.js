@@ -22,7 +22,7 @@ module.exports = function(app, db) {
     }
 
 
-    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt}}, {limit:40000}).toArray(function(e, results){
+    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt}}, {limit:50000}).toArray(function(e, results){
       if (e) return next(e);
       let filterData = results;
       filterData = _.filter(filterData, filterFunctions.startTB);
