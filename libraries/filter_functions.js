@@ -31,7 +31,7 @@ function startTB(item) {
 
       return parseFloat(startTotalOdd.over_od) <= 1.65 && parseFloat(handicapArray[0]) <= 2.5
         || parseFloat(startTotalOdd.over_od) <= 1.85 && parseInt(handicapArray[0]) === 3
-        || parseFloat(startTotalOdd.over_od) <= 1.95 && parseFloat(handicapArray[0]) >= 3.5
+        || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) >= 3.5
     } else {
       return false
     }
@@ -372,7 +372,7 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 18 && attacksSumm >= 30 && allGoals >= 4)
+    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 17 && attacksSumm >= 27 && allGoals >= 4)
   } else {
     return false
   }
