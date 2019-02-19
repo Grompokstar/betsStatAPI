@@ -365,7 +365,7 @@ function attacks(item) {
     } else {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
-    
+
     return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 15 && attacksSumm >= 22 && allGoals >= 3)
   } else {
     return false
