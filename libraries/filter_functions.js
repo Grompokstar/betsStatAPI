@@ -343,9 +343,10 @@ function attacks(item) {
     let advantageTeam = '';
     let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
     let attacksDiff;
+    dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
 
 
-    if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
+    /*if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
       dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
       attacksDiff = parseInt(item.view.stats.attacks[0]) - parseInt(item.view.stats.attacks[1]);
       advantageTeam = 'home'
@@ -353,11 +354,11 @@ function attacks(item) {
       dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[1])/parseInt(item.view.stats.dangerous_attacks[0]);
       attacksDiff = parseInt(item.view.stats.attacks[1]) - parseInt(item.view.stats.attacks[0]);
       advantageTeam = 'away'
-    }
+    }*/
 
     let resultOdds = item.odds['1_1'];
     let startResultOdd = resultOdds[resultOdds.length - 1];
-    let oddsKef = parseFloat(startResultOdd.home_od)/parseFloat(startResultOdd.away_od);
+    //let oddsKef = parseFloat(startResultOdd.home_od)/parseFloat(startResultOdd.away_od);
 
     let attacksRatioKefHome;
     let attacksRatioKefAway;
@@ -470,7 +471,7 @@ function currentWinner(item) {
     let winnerOdds = item.odds['1_1'];
     let currentWinnerOdd = winnerOdds[0];
     let startWinnerOdd = winnerOdds[winnerOdds.length -1];
-    let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
+    //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
 
    /* if (dangerAttacksKef > 1) {
@@ -489,7 +490,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 4.25 && parseFloat(currentWinnerOdd.away_od) <= 13) {
+    if (parseFloat(currentWinnerOdd.away_od) >= 5 && parseFloat(currentWinnerOdd.home_od) >= 1.3) {
       return true
     } else {
       return false
