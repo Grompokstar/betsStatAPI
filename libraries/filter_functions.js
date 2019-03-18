@@ -373,7 +373,7 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 17 && attacksSumm >= 27 && allGoals >= 4)
+    return (dangerAttacksDiff >= 2)
   } else {
     return false
   }
@@ -490,7 +490,7 @@ function currentWinner(item) {
 
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 5 && parseFloat(currentWinnerOdd.home_od) >= 1.3) {
+    if (parseFloat(currentWinnerOdd.away_od) >= 4.8 && parseFloat(currentWinnerOdd.away_od) < 9.5 && parseFloat(currentWinnerOdd.home_od) >= 1.3 && parseFloat(currentWinnerOdd.home_od) < 1.6) {
       return true
     } else {
       return false
