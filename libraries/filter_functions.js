@@ -4,7 +4,7 @@ function totalGoals(item) {
 
   if (item.view.scores) {
     totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
-    return totalGoals <= 2
+    return totalGoals <= 1
   } else {
     return false
   }
@@ -38,6 +38,28 @@ function startTB(item) {
   }
 }
 
+function startTBNew(item) {
+  if (item.odds.startTbOdd) {
+    let startTotalOdd = item.odds.startTbOdd;
+
+
+    //let handicaps_1_8 = ['2.5, 3.0', '3.0, 3,5'];
+    //let handicaps_1_9 = ['3.5', '3.5, 4.0', '4.0, 4.5', '4.5', '4.5, 5.0', '5.0, 5.5', '5,5', '5.5, 6.0', '6.0, 6.5', '6.5', '6.5, 7.0', '7.0, 7.5', '7.5', '7.5, 8.0', '8.0, 8.5', '8.5'];
+
+    if (startTotalOdd) {
+      //let overOd = parseFloat(startTotalOdd.over_od);
+      //let handicap = (startTotalOdd.handicap + '').trim();
+      let handicapArray = startTotalOdd.handicap.split(',');
+
+      return parseFloat(startTotalOdd.over_od) >= 1.6 && parseFloat(handicapArray[0]) <= 2.5
+        /*|| parseFloat(startTotalOdd.over_od) <= 1.875 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) >= 3.5*/
+    } else {
+      return false
+    }
+  }
+}
+
 function startResultOdd(item) {
   if (item.odds['1_1'] && item.scores ) {
     let resultOdds = item.odds['1_1'];
@@ -57,7 +79,7 @@ function startResultOdd(item) {
 
 function leagueName(item) {
   if (item.league && item.league.name) {
-    let leagueNameFilter = ['50', '60', '70', '80'];
+    let leagueNameFilter = ['50', '60', '70', '80', 'England'];
 
     return item.league.name.indexOf(leagueNameFilter[0]) === -1
       && item.league.name.indexOf(leagueNameFilter[1]) === -1
@@ -67,6 +89,14 @@ function leagueName(item) {
       && item.league.name.indexOf(leagueNameFilter[5]) === -1
       && item.league.name.indexOf(leagueNameFilter[6]) === -1
       && item.league.name.indexOf(leagueNameFilter[7]) === -1
+  }
+}
+
+function isLeagueName(item) {
+  if (item.league && item.league.name) {
+    let leagueNameFilter = ['England'];
+
+    return item.league.name.indexOf(leagueNameFilter[0]) >= 0
   }
 }
 
@@ -307,7 +337,7 @@ function attacksBotCorporation(item) {
 
 function attacks(item) {
   //return item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks
-  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks && item.odds['1_1'] && parseFloat(item.odds['1_1'][0].home_od) > 1) {
+  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks) {
     let goalsOnTarget = 0;
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
@@ -341,24 +371,9 @@ function attacks(item) {
 
     let dangerAttacksKef;
     let advantageTeam = '';
-    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
+    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[0]) - parseInt(item.view.stats.dangerous_attacks[1]);
     let attacksDiff;
     dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
-
-
-    /*if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
-      dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
-      attacksDiff = parseInt(item.view.stats.attacks[0]) - parseInt(item.view.stats.attacks[1]);
-      advantageTeam = 'home'
-    } else {
-      dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[1])/parseInt(item.view.stats.dangerous_attacks[0]);
-      attacksDiff = parseInt(item.view.stats.attacks[1]) - parseInt(item.view.stats.attacks[0]);
-      advantageTeam = 'away'
-    }*/
-
-    let resultOdds = item.odds['1_1'];
-    let startResultOdd = resultOdds[resultOdds.length - 1];
-    //let oddsKef = parseFloat(startResultOdd.home_od)/parseFloat(startResultOdd.away_od);
 
     let attacksRatioKefHome;
     let attacksRatioKefAway;
@@ -373,7 +388,7 @@ function attacks(item) {
     //return (advantageTeam === 'home' && dangerAttacksSumm >= 18 && dangerAttacksKef <= 2.8 && attacksRatioKefHome <= 1.9 )
 
     //тедди
-    return (dangerAttacksDiff >= 2)
+    return (dangerAttacksDiff >= 5)
   } else {
     return false
   }
@@ -467,30 +482,14 @@ function mapTrendAttacks(item) {
 }
 
 function currentWinner(item) {
-  if (item.odds['1_1'] && parseFloat(item.odds['1_1'][0].home_od) > 1) {
-    let winnerOdds = item.odds['1_1'];
-    let currentWinnerOdd = winnerOdds[0];
-    let startWinnerOdd = winnerOdds[winnerOdds.length -1];
+  if (item.odds.currentResultOdd) {
+    let currentWinnerOdd = item.odds.currentResultOdd;
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
 
-   /* if (dangerAttacksKef > 1) {
-      if (parseFloat(currentWinnerOdd.home_od) <= 1.7) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      if (parseFloat(currentWinnerOdd.away_od) <= 1.7) {
-        return true
-      } else {
-        return false
-      }
-    }*/
-
    //teddy
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 4.8 && parseFloat(currentWinnerOdd.away_od) < 9.5 && parseFloat(currentWinnerOdd.home_od) >= 1.3 && parseFloat(currentWinnerOdd.home_od) < 1.6) {
+    if (parseFloat(currentWinnerOdd.home_od) <= 1.8 ) {
       return true
     } else {
       return false
@@ -584,7 +583,9 @@ function currentTB1stHalf(item) {
 
 module.exports =  {
   startTB: startTB,
+  startTBNew: startTBNew,
   leagueName: leagueName,
+  isLeagueName: isLeagueName,
   attacksBot1: attacksBot1,
   attacksBot2: attacksBot2,
   attacksBot3: attacksBot3,
