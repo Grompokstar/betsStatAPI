@@ -16,13 +16,8 @@ function goalsDraw(item) {
 }
 
 function startTB(item) {
-  if (item.odds['1_3']) {
-    let totalOdds = item.odds['1_3'];
-    let startTotalOdd = totalOdds[totalOdds.length - 1];
-
-
-    //let handicaps_1_8 = ['2.5, 3.0', '3.0, 3,5'];
-    //let handicaps_1_9 = ['3.5', '3.5, 4.0', '4.0, 4.5', '4.5', '4.5, 5.0', '5.0, 5.5', '5,5', '5.5, 6.0', '6.0, 6.5', '6.5', '6.5, 7.0', '7.0, 7.5', '7.5', '7.5, 8.0', '8.0, 8.5', '8.5'];
+  if (item.odds.startTbOdd) {
+    let startTotalOdd = item.odds.startTbOdd;
 
     if (startTotalOdd) {
       //let overOd = parseFloat(startTotalOdd.over_od);
@@ -305,7 +300,7 @@ function attacksBotCorporation(item) {
 
 function attacks(item) {
   //return item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks
-  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks && item.odds['1_1'] && parseFloat(item.odds['1_1'][0].home_od) > 1) {
+  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks) {
     let goalsOnTarget = 0;
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
@@ -352,10 +347,6 @@ function attacks(item) {
       attacksDiff = parseInt(item.view.stats.attacks[1]) - parseInt(item.view.stats.attacks[0]);
       advantageTeam = 'away'
     }
-
-    let resultOdds = item.odds['1_1'];
-    let startResultOdd = resultOdds[resultOdds.length - 1];
-    let oddsKef = parseFloat(startResultOdd.home_od)/parseFloat(startResultOdd.away_od);
 
     let attacksRatioKefHome;
     let attacksRatioKefAway;
@@ -460,48 +451,15 @@ function mapTrendAttacks(item) {
 }
 
 function currentWinner(item) {
-  if (item.odds['1_1'] && parseFloat(item.odds['1_1'][0].home_od) > 1) {
-    let winnerOdds = item.odds['1_1'];
-    let currentWinnerOdd = winnerOdds[0];
-    let startWinnerOdd = winnerOdds[winnerOdds.length -1];
-    let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
-    //let oddsKef = parseFloat(startWinnerOdd.home_od)/parseFloat(startWinnerOdd.away_od);
-
-   /* if (dangerAttacksKef > 1) {
-      if (parseFloat(currentWinnerOdd.home_od) <= 1.7) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      if (parseFloat(currentWinnerOdd.away_od) <= 1.7) {
-        return true
-      } else {
-        return false
-      }
-    }*/
-
-   //teddy
+  if (item.odds.currentResultOdd) {
+    let currentWinnerOdd = item.odds.currentResultOdd;
+    //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
 
     if (parseFloat(currentWinnerOdd.away_od) >= 4.5 && parseFloat(currentWinnerOdd.away_od) <= 15) {
       return true
     } else {
       return false
     }
-
-    /*if (parseInt(item.view.stats.dangerous_attacks[0]) > parseInt(item.view.stats.dangerous_attacks[1])) {
-      if (parseFloat(currentWinnerOdd.home_od) >= 1.8 && parseFloat(currentWinnerOdd.home_od) <= 2.8) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      if (parseFloat(currentWinnerOdd.away_od) >= 1.8 && parseFloat(currentWinnerOdd.away_od) <= 2.8) {
-        return true
-      } else {
-        return false
-      }
-    }*/
   }
 }
 
