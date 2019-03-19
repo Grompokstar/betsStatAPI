@@ -79,9 +79,17 @@ function isLeagueName(item) {
       'Russia',
       'Serbia',
       'Uganda',
-      'World'];
+      'World',
+      'Thailand',
+      'China',
+      'Friendlies',
+      'Kazakhstan',
+      'Norway',
+      'Belgium'];
 
-    return item.league.name.indexOf(leagueNameFilter[0]) === 0
+    let notLeagueFilter = ['Cup']
+
+    return (item.league.name.indexOf(leagueNameFilter[0]) >= 0
       || item.league.name.indexOf(leagueNameFilter[1]) === 0
       || item.league.name.indexOf(leagueNameFilter[2]) === 0
       || item.league.name.indexOf(leagueNameFilter[3]) === 0
@@ -96,6 +104,13 @@ function isLeagueName(item) {
       || item.league.name.indexOf(leagueNameFilter[12]) === 0
       || item.league.name.indexOf(leagueNameFilter[13]) === 0
       || item.league.name.indexOf(leagueNameFilter[14]) === 0
+      || item.league.name.indexOf(leagueNameFilter[14]) === 0
+      || item.league.name.indexOf(leagueNameFilter[15]) === 0
+      || item.league.name.indexOf(leagueNameFilter[16]) === 0
+      || item.league.name.indexOf(leagueNameFilter[17]) === 0
+      || item.league.name.indexOf(leagueNameFilter[18]) === 0
+      || item.league.name.indexOf(leagueNameFilter[19]) === 0)
+      && item.league.name.indexOf(notLeagueFilter[0]) === -1
   }
 }
 
@@ -491,7 +506,7 @@ function currentWinner(item) {
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
 
-    if (sumAllOdd >= 8 && sumAllOdd <= 8.6) {
+    if (sumAllOdd <= 8.6) {
       return true
     } else {
       return false
@@ -505,7 +520,7 @@ function startWinnerKef(item) {
 
     let sumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
 
-    if (sumAllOdd >= 8 && sumAllOdd < 8.7) {
+    if (sumAllOdd < 8.7) {
       return true
     } else {
       return false
