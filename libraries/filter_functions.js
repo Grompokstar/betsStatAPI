@@ -4,7 +4,7 @@ function totalGoals(item) {
 
   if (item.view.scores) {
     totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
-    return totalGoals >= 0
+    return totalGoals === 0
   } else {
     return false
   }
@@ -24,7 +24,7 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) >= 1.825  && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5
+      return parseFloat(startTotalOdd.over_od) >= 1.85 && parseFloat(handicapArray[0]) <= 2.5
     } else {
       return false
     }
@@ -60,6 +60,42 @@ function leagueName(item) {
       && item.league.name.indexOf(leagueNameFilter[5]) === -1
       && item.league.name.indexOf(leagueNameFilter[6]) === -1
       && item.league.name.indexOf(leagueNameFilter[7]) === -1
+  }
+}
+
+function isLeagueName(item) {
+  if (item.league && item.league.name) {
+    let leagueNameFilter = [
+      'Argentina',
+      'Austria',
+      'Brazil',
+      'El',
+      'England',
+      'France',
+      'Hungary',
+      'Israel',
+      'Mexico',
+      'Portugal',
+      'Russia',
+      'Serbia',
+      'Uganda',
+      'World'];
+
+    return item.league.name.indexOf(leagueNameFilter[0]) === 0
+      || item.league.name.indexOf(leagueNameFilter[1]) === 0
+      || item.league.name.indexOf(leagueNameFilter[2]) === 0
+      || item.league.name.indexOf(leagueNameFilter[3]) === 0
+      || item.league.name.indexOf(leagueNameFilter[4]) === 0
+      || item.league.name.indexOf(leagueNameFilter[5]) === 0
+      || item.league.name.indexOf(leagueNameFilter[6]) === 0
+      || item.league.name.indexOf(leagueNameFilter[7]) === 0
+      || item.league.name.indexOf(leagueNameFilter[8]) === 0
+      || item.league.name.indexOf(leagueNameFilter[9]) === 0
+      || item.league.name.indexOf(leagueNameFilter[10]) === 0
+      || item.league.name.indexOf(leagueNameFilter[11]) === 0
+      || item.league.name.indexOf(leagueNameFilter[12]) === 0
+      || item.league.name.indexOf(leagueNameFilter[13]) === 0
+      || item.league.name.indexOf(leagueNameFilter[14]) === 0
   }
 }
 
@@ -299,7 +335,6 @@ function attacksBotCorporation(item) {
 }
 
 function attacks(item) {
-  //return item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks
   if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks) {
     let goalsOnTarget = 0;
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
@@ -357,7 +392,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 11 && attacksSumm >= 22 && team2AllGoals >= 1)
+    return (goalsOnTarget <= 1)
   } else {
     return false
   }
@@ -454,8 +489,9 @@ function currentWinner(item) {
   if (item.odds.currentResultOdd) {
     let currentWinnerOdd = item.odds.currentResultOdd;
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
+    let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
 
-    if (parseFloat(currentWinnerOdd.away_od) >= 4 && parseFloat(currentWinnerOdd.away_od) <= 13) {
+    if (sumAllOdd >= 8 && sumAllOdd <= 8.8) {
       return true
     } else {
       return false
@@ -467,7 +503,9 @@ function startWinnerKef(item) {
   if (item.odds.startResultOdd) {
     let startWinnerOdd = item.odds.startResultOdd;
 
-    if (parseFloat(startWinnerOdd.home_od) <= 2.4) {
+    let sumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
+
+    if (sumAllOdd >= 8 && sumAllOdd < 8.75) {
       return true
     } else {
       return false
@@ -534,6 +572,7 @@ function currentTB1stHalf(item) {
 module.exports =  {
   startTB: startTB,
   leagueName: leagueName,
+  isLeagueName: isLeagueName,
   attacksBot1: attacksBot1,
   attacksBot2: attacksBot2,
   attacksBot3: attacksBot3,
