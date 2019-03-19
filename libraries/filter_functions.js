@@ -343,7 +343,7 @@ function attacks(item) {
     goalsOnTargetDiff = parseInt(item.view.stats.on_target[1]) - parseInt(item.view.stats.on_target[0]);
 
     let goalsOffTargetDiff = 0;
-    goalsOffTargetDiff = parseInt(item.view.stats.off_target[1]) - parseInt(item.view.stats.off_target[0]);
+    goalsOffTargetDiff = Math.abs(parseInt(item.view.stats.off_target[1]) - parseInt(item.view.stats.off_target[0]));
 
     let goalsOffTarget = 0;
     goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
@@ -369,8 +369,8 @@ function attacks(item) {
 
     let dangerAttacksKef;
     let advantageTeam = '';
-    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
-    let attacksDiff;
+    //let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
+    let attacksDiff = Math.abs(parseInt(item.view.stats.attacks[0]) - parseInt(item.view.stats.attacks[1]))
 
 
     if (parseInt(item.view.stats.dangerous_attacks[0]) >= parseInt(item.view.stats.dangerous_attacks[1])) {
@@ -392,7 +392,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (goalsOnTarget <= 1)
+    return (goalsOnTarget <= 1 && dangerAttacksDif >= 3)
   } else {
     return false
   }
@@ -491,7 +491,7 @@ function currentWinner(item) {
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
 
-    if (sumAllOdd >= 8 && sumAllOdd <= 8.8) {
+    if (sumAllOdd >= 8 && sumAllOdd <= 8.6) {
       return true
     } else {
       return false
@@ -505,7 +505,7 @@ function startWinnerKef(item) {
 
     let sumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
 
-    if (sumAllOdd >= 8 && sumAllOdd < 8.75) {
+    if (sumAllOdd >= 8 && sumAllOdd < 8.7) {
       return true
     } else {
       return false
