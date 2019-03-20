@@ -26,7 +26,7 @@ function startTB(item) {
       let handicapArray = startTotalOdd.handicap.split(',');
 
       return parseFloat(startTotalOdd.over_od) <= 1.65 && parseFloat(handicapArray[0]) <= 2.5
-        || parseFloat(startTotalOdd.over_od) <= 1.85 && parseInt(handicapArray[0]) === 3
+        || parseFloat(startTotalOdd.over_od) <= 1.95 && parseInt(handicapArray[0]) === 3
         || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) >= 3.5
     } else {
       return false
@@ -309,10 +309,10 @@ function attacks(item) {
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
     let goalsOnTargetDiff = 0;
-    goalsOnTargetDiff = parseInt(item.view.stats.on_target[1]) - parseInt(item.view.stats.on_target[0]);
+    goalsOnTargetDiff = parseInt(item.view.stats.on_target[0]) - parseInt(item.view.stats.on_target[1]);
 
     let goalsOffTargetDiff = 0;
-    goalsOffTargetDiff = parseInt(item.view.stats.off_target[1]) - parseInt(item.view.stats.off_target[0]);
+    goalsOffTargetDiff = parseInt(item.view.stats.off_target[0]) - parseInt(item.view.stats.off_target[1]);
 
     let goalsOffTarget = 0;
     goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
@@ -350,7 +350,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (dangerAttacksDiff >= 0)
+    return (dangerAttacksDiff >= 0 && goalsOnTargetDiff >= 0)
   } else {
     return false
   }
