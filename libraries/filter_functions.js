@@ -450,7 +450,7 @@ function currentWinner(item) {
     let oddsKef = parseFloat(currentWinnerOdd.home_od)/parseFloat(startWinnerOdd.home_od)
 
 
-    if (oddsKef >= 0.9) {
+    if (oddsKef >= 0.97) {
       return true
     } else {
       return false
