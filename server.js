@@ -10,7 +10,7 @@ const port = 8088;
 
 
 MongoClient.connect(db.url, (err, database) => {
-  const myAwesomeDB = database.db('bets');
+  const myAwesomeDB = database.db('newBets');
 
   if (err) return console.log(err);
 

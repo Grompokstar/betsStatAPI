@@ -22,15 +22,15 @@ module.exports = function(app, db) {
     }
 
 
-    db.collection('notes').find({"timer.tm": 20, time: {$gte: dateAt, $lte: dateTo}}, {limit:100000}).toArray(function(e, results){
+    db.collection('notes').find({time: {$gte: dateAt, $lte: dateTo}}, {limit:100000}).toArray(function(e, results){
       if (e) return next(e);
       let filterData = results;
-      filterData = _.filter(filterData, filterFunctions.startTB);
+      //filterData = _.filter(filterData, filterFunctions.startTB);
       filterData = _.filter(filterData, filterFunctions.totalGoals);
       filterData = _.filter(filterData, filterFunctions.attacks);
       //filterData = _.filter(filterData, filterFunctions.leagueName);
       filterData = _.filter(filterData, filterFunctions.currentWinner);
-      //filterData = _.filter(filterData, filterFunctions.startWinnerKef);
+      filterData = _.filter(filterData, filterFunctions.startWinnerKef);
 
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
       //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
