@@ -34,7 +34,8 @@ module.exports = function(app, db) {
       const botTypes = {
         serega_draw: 'draw',
         oracle: 'away',
-        patriot: 'home'
+        patriot: 'home',
+        friendship: 'draw'
       }
       let filterData = results;
       let multiFinishData = []
