@@ -407,7 +407,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (goalsOnTarget <= 1 && dangerAttacksDif >= 3)
+    return (allGoals <= 0)
   } else {
     return false
   }
@@ -506,7 +506,7 @@ function currentWinner(item) {
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
 
-    if (sumAllOdd <= 8.6) {
+    if (sumAllOdd <= 8.8) {
       return true
     } else {
       return false
