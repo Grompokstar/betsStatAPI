@@ -413,6 +413,82 @@ function attacks(item) {
   }
 }
 
+function serega_draw(item) {
+  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks
+    && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd) {
+    let goalsOnTarget = 0;
+    goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
+
+    let goalsOffTarget = 0;
+    goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let allGoals = goalsOnTarget + goalsOffTarget;
+
+    let currentWinnerOdd = item.odds.currentResultOdd;
+    let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
+
+    let startWinnerOdd = item.odds.startResultOdd;
+    let startSumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
+
+    if (sumAllOdd <= 8.8 && allGoals <= 0 && startSumAllOdd < 8.7) {
+      return true
+    } else {
+      return false
+    }
+
+  } else {
+    return false
+  }
+}
+
+function oracle(item) {
+  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks
+    && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd
+    && item.league && item.league.name && item.odds.startTbOdd) {
+    let goalsOnTarget = 0;
+    goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
+
+    let goalsOffTarget = 0;
+    goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let allGoals = goalsOnTarget + goalsOffTarget;
+
+    let dangerAttacksDiff = parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]);
+    let dangerAttacksSumm = parseInt(item.view.stats.dangerous_attacks[0]) + parseInt(item.view.stats.dangerous_attacks[1]);
+    let attacksSumm = parseInt(item.view.stats.attacks[0]) + parseInt(item.view.stats.attacks[1]);
+
+
+    let startTotalOdd = item.odds.startTbOdd;
+    let handicapArray = startTotalOdd.handicap.split(',');
+
+    let leagueNameFilter = ['50', '60', '70', '80', 'England'];
+
+    let currentWinnerOdd = item.odds.currentResultOdd;
+
+    let totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
+
+    if (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 17 && attacksSumm >= 27 && allGoals >= 4
+      && (parseFloat(startTotalOdd.over_od) <= 1.65 && parseFloat(handicapArray[0]) <= 2.5
+      || parseFloat(startTotalOdd.over_od) <= 1.875 && parseInt(handicapArray[0]) === 3
+      || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) >= 3.5)
+      && item.league.name.indexOf(leagueNameFilter[0]) === -1
+      && item.league.name.indexOf(leagueNameFilter[1]) === -1
+      && item.league.name.indexOf(leagueNameFilter[2]) === -1
+      && item.league.name.indexOf(leagueNameFilter[3]) === -1
+      && item.league.name.indexOf(leagueNameFilter[4]) === -1
+      && parseFloat(currentWinnerOdd.away_od) >= 4.25 && parseFloat(currentWinnerOdd.away_od) <= 13
+      && totalGoals <= 2
+    ) {
+      return true
+    } else {
+      return false
+    }
+
+  } else {
+    return false
+  }
+}
+
 function trendAttacks(item) {
   //return item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks && item.view.stats.dangerous_attacks
   if (item.trends && item.trends.dangerous_attacks) {
@@ -605,6 +681,8 @@ module.exports =  {
   trendAttacks: trendAttacks,
   mapTrendAttacks: mapTrendAttacks,
   attacksBotTM: attacksBotTM,
-  startWinnerKef: startWinnerKef
+  startWinnerKef: startWinnerKef,
+  serega_draw: serega_draw,
+  oracle: oracle
 
 }

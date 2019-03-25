@@ -21,36 +21,77 @@ module.exports = function(app, db) {
       dateTo = +new Date()/1000;
     }
 
+    let multi;
+
+    if (req.query.multi) {
+      console.log(req.query.multi)
+      multi = req.query.multi
+    }
+
 
     db.collection('notes').find({time: {$gte: dateAt, $lte: dateTo}}, {limit:100000}).toArray(function(e, results){
       if (e) return next(e);
+      const botTypes = {
+        serega_draw: 'draw',
+        oracle: 'away',
+        patriot: 'home'
+      }
       let filterData = results;
-      //filterData = _.filter(filterData, filterFunctions.startTB);
-      //filterData = _.filter(filterData, filterFunctions.totalGoals);
-      filterData = _.filter(filterData, filterFunctions.attacks);
-      //filterData = _.filter(filterData, filterFunctions.leagueName);
-      //filterData = _.filter(filterData, filterFunctions.isLeagueName);
-      filterData = _.filter(filterData, filterFunctions.currentWinner);
-      filterData = _.filter(filterData, filterFunctions.startWinnerKef);
+      let multiFinishData = []
+      let multiFilterData
+      if (multi) {
+        _.forEach(multi, (item) => {
+          console.log(item)
+          multiFilterData = _.filter(filterData, filterFunctions[item]);
+          let finishData = [];
+          _.forEach(multiFilterData, function(item) {
+            let have = false;
+            have = _.find(finishData, function(item2) {
+              return item2.id === item.id
+            })
 
-      //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
-      //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
+            if (!have) {
+              finishData.push(item);
+            }
+          })
+          let mappedFilterData = _.map(finishData, (event) => {
+            event.botName = item
+            event.botType = botTypes[item]
+            return event
+          })
 
-
-
-      let finishData = [];
-      _.forEach(filterData, function(item) {
-        let have = false;
-        have = _.find(finishData, function(item2) {
-          return item2.id === item.id
+          multiFinishData = multiFinishData.concat(mappedFilterData)
         })
 
-        if (!have) {
-          finishData.push(item);
-        }
-      })
+        let sortedData = _.sortBy(multiFinishData, 'time');
 
-      res.send(finishData)
+        res.send(sortedData)
+      } else {
+        //filterData = _.filter(filterData, filterFunctions.startTB);
+        //filterData = _.filter(filterData, filterFunctions.totalGoals);
+        filterData = _.filter(filterData, filterFunctions.attacks);
+        //filterData = _.filter(filterData, filterFunctions.leagueName);
+        //filterData = _.filter(filterData, filterFunctions.isLeagueName);
+        filterData = _.filter(filterData, filterFunctions.currentWinner);
+        filterData = _.filter(filterData, filterFunctions.startWinnerKef);
+
+        //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
+        //filterData = _.filter(filterData, filterFunctions.currentTB1stHalf);
+
+        let finishData = [];
+        _.forEach(filterData, function(item) {
+          let have = false;
+          have = _.find(finishData, function(item2) {
+            return item2.id === item.id
+          })
+
+          if (!have) {
+            finishData.push(item);
+          }
+        })
+
+        res.send(finishData)
+      }
     })
   });
 
