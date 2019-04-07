@@ -415,7 +415,7 @@ function attacks(item) {
 
 function serega_draw(item) {
   if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks
-    && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd) {
+    && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd && item.odds.startTbOdd) {
     let goalsOnTarget = 0;
     goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
 
@@ -430,7 +430,11 @@ function serega_draw(item) {
     let startWinnerOdd = item.odds.startResultOdd;
     let startSumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
 
-    if (sumAllOdd <= 8.8 && allGoals <= 0 && startSumAllOdd < 8.7) {
+    let startTotalOdd = item.odds.startTbOdd
+    let handicapArray = startTotalOdd.handicap.split(',');
+
+    if (sumAllOdd <= 8.9 && startSumAllOdd < 8.6 && allGoals <= 0
+      && parseFloat(startTotalOdd.over_od) >= 1.85 && parseFloat(handicapArray[0]) <= 2.5) {
       return true
     } else {
       return false
@@ -505,8 +509,8 @@ function patriot(item) {
 
     let oddsKef = parseFloat(currentWinnerOdd.home_od)/parseFloat(startWinnerOdd.home_od)
 
-    if (dangerAttacksDiff >= 0 && goalsOnTargetDiff >= 0 && totalGoals === 0
-      && parseFloat(startWinnerOdd.home_od) >= 3.5 && oddsKef >= 0.97) {
+    if (dangerAttacksDiff >= 3 && goalsOnTargetDiff >= 0 && totalGoals === 0
+      && parseFloat(startWinnerOdd.home_od) >= 3.5 && oddsKef >= 0.94) {
       return true
     } else {
       return false
@@ -545,8 +549,8 @@ function friendship(item) {
 
     let totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
 
-    if (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 11 && attacksSumm >= 22 && team2AllGoals >= 1
-      && (parseFloat(startTotalOdd.over_od) >= 1.825 && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5)
+    if (dangerAttacksDiff >= 4 && team2AllGoals >= 2
+      && (parseFloat(startTotalOdd.over_od) >= 1.85 && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5)
       && item.league.name.indexOf(leagueNameFilter[0]) === -1
       && item.league.name.indexOf(leagueNameFilter[1]) === -1
       && item.league.name.indexOf(leagueNameFilter[2]) === -1
