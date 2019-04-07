@@ -24,7 +24,7 @@ function startTB(item) {
       //let handicap = (startTotalOdd.handicap + '').trim();
       let handicapArray = startTotalOdd.handicap.split(',');
 
-      return parseFloat(startTotalOdd.over_od) >= 1.825  && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5
+      return parseFloat(startTotalOdd.over_od) >= 1.85  && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5
     } else {
       return false
     }
@@ -357,7 +357,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 11 && attacksSumm >= 22 && team2AllGoals >= 1)
+    return (dangerAttacksDiff >= 4 && team2AllGoals >= 2)
   } else {
     return false
   }
