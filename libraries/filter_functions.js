@@ -350,7 +350,7 @@ function attacks(item) {
       attacksRatioKefAway = parseInt(item.view.stats.attacks[1])/parseInt(item.view.stats.attacks[0]);
     }
 
-    return (dangerAttacksDiff >= 0 && goalsOnTargetDiff >= 0)
+    return (dangerAttacksDiff >= 3 && goalsOnTargetDiff >= 0)
   } else {
     return false
   }
@@ -450,7 +450,7 @@ function currentWinner(item) {
     let oddsKef = parseFloat(currentWinnerOdd.home_od)/parseFloat(startWinnerOdd.home_od)
 
 
-    if (oddsKef >= 0.97) {
+    if (oddsKef >= 0.94) {
       return true
     } else {
       return false
