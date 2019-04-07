@@ -506,7 +506,7 @@ function currentWinner(item) {
     //let dangerAttacksKef = parseInt(item.view.stats.dangerous_attacks[0])/parseInt(item.view.stats.dangerous_attacks[1]);
     let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
 
-    if (sumAllOdd <= 8.8) {
+    if (sumAllOdd <= 8.9) {
       return true
     } else {
       return false
@@ -520,7 +520,7 @@ function startWinnerKef(item) {
 
     let sumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
 
-    if (sumAllOdd < 8.7) {
+    if (sumAllOdd < 8.6) {
       return true
     } else {
       return false
