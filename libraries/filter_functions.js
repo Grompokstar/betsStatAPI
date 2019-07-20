@@ -445,6 +445,37 @@ function serega_draw(item) {
   }
 }
 
+function serega_draw_full(item) {
+  if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks
+    && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd && item.odds.startTbOdd) {
+    let goalsOnTarget = 0;
+    goalsOnTarget = parseInt(item.view.stats.on_target[0]) + parseInt(item.view.stats.on_target[1]);
+
+    let goalsOffTarget = 0;
+    goalsOffTarget = parseInt(item.view.stats.off_target[0]) + parseInt(item.view.stats.off_target[1]);
+
+    let allGoals = goalsOnTarget + goalsOffTarget;
+
+    let currentWinnerOdd = item.odds.currentResultOdd;
+    let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
+
+    let startWinnerOdd = item.odds.startResultOdd;
+    let startSumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
+
+    let startTotalOdd = item.odds.startTbOdd
+    let handicapArray = startTotalOdd.handicap.split(',');
+
+    if (sumAllOdd <= 8.8 && startSumAllOdd < 8.7 && allGoals <= 1) {
+      return true
+    } else {
+      return false
+    }
+
+  } else {
+    return false
+  }
+}
+
 function oracle(item) {
   if (item.view && item.view.stats && item.view.stats.on_target && item.view.stats.attacks
     && item.view.stats.dangerous_attacks && item.odds.currentResultOdd && item.odds.startResultOdd
@@ -763,6 +794,7 @@ module.exports =  {
   attacksBotTM: attacksBotTM,
   startWinnerKef: startWinnerKef,
   serega_draw: serega_draw,
+  serega_draw_full: serega_draw_full,
   oracle: oracle,
   patriot: patriot,
   friendship: friendship

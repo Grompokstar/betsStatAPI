@@ -33,6 +33,7 @@ module.exports = function(app, db) {
       if (e) return next(e);
       const botTypes = {
         serega_draw: 'draw',
+        serega_draw_full: 'draw',
         oracle: 'away',
         patriot: 'home',
         friendship: 'draw'
