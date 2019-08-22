@@ -465,7 +465,7 @@ function serega_draw_full(item) {
     let startTotalOdd = item.odds.startTbOdd
     let handicapArray = startTotalOdd.handicap.split(',');
 
-    if (sumAllOdd <= 8.8 && startSumAllOdd < 8.7 && allGoals <= 1) {
+    if (sumAllOdd <= 8.9 && startSumAllOdd < 8.7 && allGoals <= 1) {
       return true
     } else {
       return false
