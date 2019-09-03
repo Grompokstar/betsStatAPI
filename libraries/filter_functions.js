@@ -580,8 +580,8 @@ function friendship(item) {
 
     let totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
 
-    if (dangerAttacksDiff >= 4 && team2AllGoals >= 2
-      && (parseFloat(startTotalOdd.over_od) >= 1.85 && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5)
+    if (dangerAttacksDiff >= 2 && team2AllGoals >= 1
+      && (parseFloat(startTotalOdd.over_od) >= 1.9 && parseFloat(startTotalOdd.over_od) < 2 && parseFloat(handicapArray[0]) <= 2.5)
       && item.league.name.indexOf(leagueNameFilter[0]) === -1
       && item.league.name.indexOf(leagueNameFilter[1]) === -1
       && item.league.name.indexOf(leagueNameFilter[2]) === -1
