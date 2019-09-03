@@ -502,7 +502,7 @@ function oracle(item) {
 
     let totalGoals = parseInt(item.view.scores['2'].home) - parseInt(item.view.scores['2'].away);
 
-    if (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 17 && attacksSumm >= 27 && allGoals >= 4
+    if (dangerAttacksDiff >= 2 && dangerAttacksSumm >= 15 && attacksSumm >= 27 && allGoals >= 4
       && (parseFloat(startTotalOdd.over_od) <= 1.65 && parseFloat(handicapArray[0]) <= 2.5
       || parseFloat(startTotalOdd.over_od) <= 1.875 && parseInt(handicapArray[0]) === 3
       || parseFloat(startTotalOdd.over_od) <= 2 && parseFloat(handicapArray[0]) >= 3.5)
@@ -511,8 +511,8 @@ function oracle(item) {
       && item.league.name.indexOf(leagueNameFilter[2]) === -1
       && item.league.name.indexOf(leagueNameFilter[3]) === -1
       && item.league.name.indexOf(leagueNameFilter[4]) === -1
-      && parseFloat(currentWinnerOdd.away_od) >= 4.25 && parseFloat(currentWinnerOdd.away_od) <= 13
-      && totalGoals <= 2
+      && parseFloat(currentWinnerOdd.away_od) >= 4.25 && parseFloat(currentWinnerOdd.away_od) <= 9
+      //&& totalGoals <= 2
     ) {
       return true
     } else {
