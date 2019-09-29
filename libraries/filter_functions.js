@@ -547,7 +547,7 @@ function patriot(item) {
     let oddsKef = parseFloat(currentWinnerOdd.home_od)/parseFloat(startWinnerOdd.home_od)
 
     if (dangerAttacksDiff >= 1 && goalsOnTargetDiff >= 0 && totalGoals === 0
-      && parseFloat(startWinnerOdd.home_od) >= 3.5 && oddsKef >= 0.96) {
+      && parseFloat(startWinnerOdd.home_od) >= 3.5 && oddsKef >= 0.98) {
       return true
     } else {
       return false
