@@ -29,7 +29,7 @@ module.exports = function(app, db) {
     }
 
 
-    db.collection('notes').find({time: {$gte: dateAt, $lte: dateTo}}, {limit:100000}).toArray(function(e, results){
+    db.collection('notes').find({time: {$gte: dateAt, $lte: dateTo}}, {limit:200000}).toArray(function(e, results){
       if (e) return next(e);
       const botTypes = {
         serega_draw: 'draw',

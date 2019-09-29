@@ -457,15 +457,21 @@ function serega_draw_full(item) {
     let allGoals = goalsOnTarget + goalsOffTarget;
 
     let currentWinnerOdd = item.odds.currentResultOdd;
-    let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
+    //let sumAllOdd = parseFloat(currentWinnerOdd.home_od) + parseFloat(currentWinnerOdd.draw_od) + parseFloat(currentWinnerOdd.away_od)
+    let currentOddsDifferent = Math.abs(parseFloat(currentWinnerOdd.home_od) - parseFloat(currentWinnerOdd.away_od))
 
     let startWinnerOdd = item.odds.startResultOdd;
-    let startSumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
+    //let startSumAllOdd = parseFloat(startWinnerOdd.home_od) + parseFloat(startWinnerOdd.draw_od) + parseFloat(startWinnerOdd.away_od)
+    let startOddsDifferent = Math.abs(parseFloat(startWinnerOdd.home_od) - parseFloat(startWinnerOdd.away_od))
 
-    let startTotalOdd = item.odds.startTbOdd
-    let handicapArray = startTotalOdd.handicap.split(',');
+    let diff = startOddsDifferent - currentOddsDifferent
 
-    if (sumAllOdd <= 8.9 && startSumAllOdd < 8.7 && allGoals <= 1) {
+    //let startTotalOdd = item.odds.startTbOdd
+    //let handicapArray = startTotalOdd.handicap.split(',');
+
+    let dangerAttacksDiff = Math.abs(parseInt(item.view.stats.dangerous_attacks[1]) - parseInt(item.view.stats.dangerous_attacks[0]));
+
+    if (currentOddsDifferent <= 1.36 && startOddsDifferent <= 1.5 && allGoals <= 1 && dangerAttacksDiff <= 5) {
       return true
     } else {
       return false
